@@ -1,0 +1,8 @@
+{
+  "ServiceName": "Anye.Soft.AutoUpdateServer",
+  "DisplayName": "暗夜软件自动更新服务",
+  "Description": "暗夜软件自动更新服务",
+  "ServerIP": "127.0.0.1",
+  "ServerPort": "9999",
+  "ServerKey": "20210615"
+}

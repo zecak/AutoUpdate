@@ -1,0 +1,116 @@
+﻿<Window x:Class="Anye.Soft.AutoUpdateSetting.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Anye.Soft.AutoUpdateSetting"
+        mc:Ignorable="d"
+        xmlns:s="https://github.com/canton7/Stylet"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:common="clr-namespace:Anye.Soft.Common;assembly=Anye.Soft.Common"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        d:DataContext="{d:DesignInstance local:ShellViewModel}"
+        Title="暗夜软件自动更新管理" Height="450" Width="800" Background="#FFBBBBBB">
+    <Window.Resources>
+        
+    </Window.Resources>
+    <Grid>
+        <DockPanel Margin="4">
+            <DockPanel DockPanel.Dock="Top">
+                <Button Margin="4,0,4,2" Command="{s:Action Load}" DockPanel.Dock="Right">
+                    <Button.Content>
+                        <TextBlock Text="重新加载"></TextBlock>
+                    </Button.Content>
+                </Button>
+            </DockPanel>
+            <TabControl TabStripPlacement="Left" ItemsSource="{Binding AppInfos}" SelectedItem="{Binding CurAppInfo}" Background="Gainsboro" >
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <ContentPresenter>
+                            <ContentPresenter.Content>
+                                <DockPanel>
+                                    <TextBlock Text="客户端" DockPanel.Dock="Right"></TextBlock>
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                </DockPanel>
+                            </ContentPresenter.Content>
+                        </ContentPresenter>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <DockPanel Margin="4">
+                            <TabControl ItemsSource="{Binding Configs}">
+                                <TabControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <ContentPresenter>
+                                            <ContentPresenter.Content>
+                                                <DockPanel>
+                                                    <TextBlock Text="版本"></TextBlock>
+                                                    <TextBlock Text="{Binding ClientVersion}"></TextBlock>
+                                                </DockPanel>
+                                            </ContentPresenter.Content>
+                                        </ContentPresenter>
+                                    </DataTemplate>
+                                </TabControl.ItemTemplate>
+                                <TabControl.ContentTemplate>
+                                    <DataTemplate>
+                                        <DockPanel Margin="4">
+                                            <DockPanel DockPanel.Dock="Top">
+                                                <TextBlock x:Name="tb_data" Visibility="Collapsed" DataContext="{Binding}"></TextBlock>
+                                                <ComboBox ItemsSource="{Binding EnumUpdateActionList}" SelectedItem="{Binding CurEnumUpdateAction}" DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window},AncestorLevel=1},Path=DataContext}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="SelectionChanged" >
+                                                            <i:InvokeCommandAction Command="{s:Action SelectionChanged}" CommandParameter="{Binding ElementName=tb_data,Path=DataContext}"  s:View.ActionTarget="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window},AncestorLevel=1},Path=DataContext}" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </ComboBox>
+                                                <Button Margin="4,0,4,2" Visibility="Collapsed" Command="{s:Action ShowFileVersionView}" CommandParameter="{Binding}" DockPanel.Dock="Right">
+                                                    <Button.Content>
+                                                        <TextBlock Text="新增更新"></TextBlock>
+                                                    </Button.Content>
+                                                </Button>
+                                                <Button Margin="4,0,4,2" Visibility="Collapsed" s:View.ActionTarget="{Binding}" Command="{s:Action DelFileVersion}" CommandParameter="{Binding FileVersionModel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right">
+                                                    <Button.Content>
+                                                        <TextBlock Text="删除更新"></TextBlock>
+                                                    </Button.Content>
+                                                </Button>
+                                                <Button Margin="4,0,4,2" Command="{s:Action DelConfigAndLoad}" CommandParameter="{Binding}" DockPanel.Dock="Right">
+                                                    <Button.Content>
+                                                        <TextBlock Text="重新生成配置"></TextBlock>
+                                                    </Button.Content>
+                                                </Button>
+                                                <Button Margin="4,0,4,2" Command="{s:Action SaveConfig}" CommandParameter="{Binding}">
+                                                    <Button.Content>
+                                                        <TextBlock Text="保存配置"></TextBlock>
+                                                    </Button.Content>
+                                                </Button>
+                                            </DockPanel>
+
+                                            <DataGrid ItemsSource="{Binding FileVersions}" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" SelectedValue="{Binding FileVersionModel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="文件名" Binding="{Binding FileName}" IsReadOnly="True">
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn Header="文件大小" Binding="{Binding FileSize}" IsReadOnly="True">
+                                                    </DataGridTextColumn>
+                                                    <DataGridComboBoxColumn  Header="操作类型" SelectedItemBinding="{Binding Action}" ItemsSource="{Binding Source={StaticResource UpdateActionType}}" >
+                                                    </DataGridComboBoxColumn>
+                                                    <DataGridTextColumn Header="MD5" Binding="{Binding MD5}" IsReadOnly="True" Width="*">
+                                                    </DataGridTextColumn>
+
+                                                </DataGrid.Columns>
+
+                                            </DataGrid>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </TabControl.ContentTemplate>
+                            </TabControl>
+                        </DockPanel>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
+        </DockPanel>
+        <DockPanel Margin="4">
+            <ContentControl s:View.Model="{Binding ActiveItem}"/>
+        </DockPanel>
+    </Grid>
+</Window>

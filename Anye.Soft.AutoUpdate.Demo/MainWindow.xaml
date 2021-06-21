@@ -1,0 +1,18 @@
+﻿<Window x:Class="Anye.Soft.AutoUpdate.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Anye.Soft.AutoUpdate.Demo"
+        mc:Ignorable="d" 
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid Margin="20">
+        <DockPanel>
+            <Button Content="开始升级(控制台)" Click="Button_Click_1" DockPanel.Dock="Bottom"></Button>
+            <Button Content="开始升级(后台)" Click="Button_Click" DockPanel.Dock="Bottom"></Button>
+            <TextBox x:Name="txt" AcceptsReturn="True"></TextBox>
+        </DockPanel>
+        
+        
+    </Grid>
+</Window>

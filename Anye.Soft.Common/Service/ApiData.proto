@@ -1,0 +1,30 @@
+﻿syntax = "proto3";
+package AnyeSoft.Common.Service;
+service gRPC {
+  //简单rpc:用于接口调用
+  rpc Exec (APIRequest) returns (APIReply) {}
+ 
+  //双向流rpc:用于文件下载或保持连接
+  rpc Chat(stream APIRequest) returns ( stream APIReply) {}
+}
+
+message APIRequest {
+    string ApiPath=1;//操作地址(类似于web地址方式,如:/api/login)
+	string Data=2;//数据(一般是json数据)
+	string AppID=3;//商户ID(用于请求接口,配合SecretKey使用)
+	string Sign=4;//电子签名
+	int64 Time=5;//时间戳
+	string Token=6;//用户Token
+	int32 FileBlock = 7;//文件块(用于文件上传等)
+	bytes FileContents = 8;//文件内容字节(用于文件上传等)
+}
+
+message APIReply {
+    int32 Code=1;//返回结果(0:成功,其他值:错误)
+	string Data=2;//返回数据(一般是json数据)
+	string Msg=3;//提示信息
+	string Action=4;//操作类型(用于客户端执行某些操作)
+	int32 FileBlock = 5;//文件块(用于文件下载等)
+	bytes FileContents = 6;//文件内容字节(用于文件下载等)
+}
+
