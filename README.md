@@ -16,22 +16,22 @@
 
 #### 使用教程
 
-1.运行服务端:
-        a.windows:双击运行[Anye.Soft.AutoUpdate.Server.exe]
-        b.linux:先进入[程序目录],之后执行:`bash linux_run.sh`
+1. 运行服务端:
+        a. windows:双击运行[Anye.Soft.AutoUpdate.Server.exe]
+        b. linux:先进入[程序目录],之后执行:`bash linux_run.sh`
 
-2.使用管理端程序:
-        a.运行[Anye.Soft.AutoUpdate.Manage.exe]
-        b.创建更新服务: [新增服务] => 在列表里双击<刚刚新增的服务>
-        c.创建更新库:   => [创建更新库]
-        d.创建程序版本: => [新增版本] => [导入目录] => [发布]
+2. 使用管理端程序:
+        a. 运行[Anye.Soft.AutoUpdate.Manage.exe]
+        b. 创建更新服务: [新增服务] => 在列表里双击<刚刚新增的服务>
+        c. 创建更新库:   => [创建更新库]
+        d. 创建程序版本: => [新增版本] => [导入目录] => [发布]
 
-3.使用命令端程序(先进入程序目录):
-	a.windows
+3. 使用命令端程序(先进入程序目录):
+	a. windows
 		a-1.添加更新库配置:`Anye.Soft.AutoUpdate.Exec.exe add -n app1 -t 127.0.0.1:9999 -u updater -k 123456 -l app1`
 		a-2.执行更新:`Anye.Soft.AutoUpdate.Exec.exe update -n app1`
 		或.直接执行:`Anye.Soft.AutoUpdate.Exec.exe run -t 127.0.0.1:9999 -u updater -k 123456 -l app1`
-	b.linux
+	b. linux
 		b-1.添加更新库配置:`dotnet Anye.Soft.AutoUpdate.Exec.dll add -n app1 -t 127.0.0.1:9999 -u updater -k 123456 -l app1`
 		b-2.执行更新:`dotnet Anye.Soft.AutoUpdate.Exec.dll update -n app1`
 		或.直接执行:`dotnet Anye.Soft.AutoUpdate.Exec.dll run -t 127.0.0.1:9999 -u updater -k 123456 -l app1`
@@ -40,7 +40,7 @@
 
 #### 项目说明
 
-1.  服务端:服务提供接口
+1. 服务端:服务提供接口
 	使用说明.txt
 	Anye.Soft.AutoUpdate.Server.exe #windows程序
 	win_install.bat #安装成windows服务
@@ -58,12 +58,12 @@
 	log4net.config #日志配置
 	server.json #配置文件
 	
-2.  管理端:连接服务端,管理更新库信息
+2. 管理端:连接服务端,管理更新库信息
 	使用说明.txt
 	Anye.Soft.AutoUpdate.Manage.exe #windows程序
 	log4net.config #日志配置
 	
-3.  命令端:连接服务端,获取更新库信息,实现自动更新程序
+3. 命令端:连接服务端,获取更新库信息,实现自动更新程序
 	使用说明.txt
 	Anye.Soft.AutoUpdate.Exec.exe #windows程序
 	Anye.Soft.AutoUpdate.Exec.dll #linux程序
