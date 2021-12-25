@@ -8,8 +8,9 @@ namespace Anye.Soft.Common
 {
     public enum EnumUpdateAction
     {
-        无,
-        更新,
-        删除,
+        None = 0,
+        FileUpdate = 1,
+        FileDelete = 2,
+        ContentUpdate = 3,
     }
 }

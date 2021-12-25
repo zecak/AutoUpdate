@@ -22,7 +22,7 @@ namespace Anye.Soft.Common
                     var logCfg = new System.IO.FileInfo(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config"));
                     log4net.Config.XmlConfigurator.ConfigureAndWatch(logCfg);
                     log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-                    
+
                 }
 
                 return log;
@@ -41,8 +41,8 @@ namespace Anye.Soft.Common
                     var settingPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, settingFileName);
                     if (!System.IO.File.Exists(settingPath))
                     {
-                        var temp = new ServerSetting() { DisplayName = "暗夜软件自动更新服务", ServiceName = "Anye.Soft.AutoUpdateServer", Description = "暗夜软件自动更新服务", ServerIP = "127.0.0.1", ServerPort = "9999", ServerKey = "20210615" };
-                        File.WriteAllText(settingPath, temp.ToJson());
+                        var temp = new ServerSetting() { ServerIP = "0.0.0.0", ServerPort = "9999", Admin = new UserModel() { Name = "anye", Pass = "20210615" }, Updater = new UserModel() { Name = "updater", Pass = "123456" } };
+                        File.WriteAllText(settingPath, temp.ToJson(true));
                     }
                     settingjson = System.IO.File.ReadAllText(settingPath).JsonTo<ServerSetting>();
                 }
@@ -54,6 +54,7 @@ namespace Anye.Soft.Common
             }
         }
 
+
         const string settingAutoUpdateSettingFileName = "AutoUpdateSetting.json";
         static AutoUpdateSettingModel settingAutoUpdateSettingjson = null;
 
@@ -63,11 +64,11 @@ namespace Anye.Soft.Common
             {
                 if (settingAutoUpdateSettingjson == null)
                 {
-                    var settingPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, settingAutoUpdateSettingFileName);
+                    var settingPath = new DirectoryInfo(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, settingAutoUpdateSettingFileName)).FullName;
                     if (!System.IO.File.Exists(settingPath))
                     {
-                        var temp = new AutoUpdateSettingModel() { UpdatePath="Clients", FileName= "AutoUpdateConfig.json" };
-                        File.WriteAllText(settingPath, temp.ToJson());
+                        var temp = new AutoUpdateSettingModel() { UpdatePath = "../UpdateLibs/", FileName = "AutoUpdateConfig.json" };
+                        File.WriteAllText(settingPath, temp.ToJson(true));
                     }
                     settingAutoUpdateSettingjson = System.IO.File.ReadAllText(settingPath).JsonTo<AutoUpdateSettingModel>();
                 }

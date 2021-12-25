@@ -8,7 +8,17 @@ namespace Anye.Soft.Common.Models
 {
     public class ApiVersionModel
     {
-        public string ClientName { get; set; }
-        public int ClientVersion { get; set; }
+        /// <summary>
+        /// 更新库名称
+        /// </summary>
+        public string UpdateLibName { get; set; }
+        /// <summary>
+        /// 版本库
+        /// </summary>
+        public int Version { get; set; }
+        /// <summary>
+        /// 用于删除文件
+        /// </summary>
+        public string FileName { get; set; }
     }
 }

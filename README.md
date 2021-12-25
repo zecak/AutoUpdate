@@ -1,67 +1,73 @@
-# Anye.Soft.AutoUpdate
+# 暗夜软件自动更新
 
 #### 介绍
-暗夜软件自动更新(.net5)
-差异更新,自动生成配置文件
 
-#### 软件架构
-Grpc通讯
-Topshelf(用于服务端)
-Stylet(用于更新管理[wpf程序])
-PropertyChanged.Fody(用于更新管理[wpf程序])
+这是一款 dotnet core 基于C#语言开发,开源跨平台通用自动更新程序
 
-#### 安装教程
+#### 特点
 
-1.  先运行服务端
-    a.双击直接运行:Anye.Soft.AutoUpdateServer.exe
-    b.以系统服务运行:右键[以管理员身份运行]运行[1_install.bat]即可,启动服务请执行[2_start_service.bat],停止服务请执行[3_stop_service.bat],卸载服务请执行[4_uninstall.bat]
-2.  打开更新管理程序:Anye.Soft.AutoUpdateSetting.exe,首次会自动生成配置文件,生成后即可使用自动更新程序
-3.  执行自动更新客户端,即可自动升级,具体配置可看AutoUpdate.json;或者执行[自动升级.bat],也可以自动下载需要升级的程序
+1.跨平台,轻量级,通用
+2.差异更新,更新速度快
+3.界面管理更新数据,操作简单
+4.运行方式支持:普通运行和服务运行
+5.自动更新支持:可执行程序和服务程序
 
-#### 使用说明
+#### 使用教程
 
-1.  服务端配置文件说明:
-        设置配置文件:AutoUpdateSetting.json
-        				UpdatePath-------更新根目录,默认值:Clients
-        				FileName---------版本配置文件,默认值:AutoUpdateConfig.json
-        
-        [版本目录]名按整数数值命名,数值越大,版本越新;
-        [版本配置文件]:AutoUpdateConfig.json(每个版本目录下的文件)
-        
-        文件结构:
-        	Clients-------------根目录
-        		App1---------------客户端目录
-        			1--------------版本目录
-        			2--------------版本目录
-        		App2---------------客户端目录
-        			1--------------版本目录
-        
-        更新管理界面,首次会自动生成[版本配置文件],另外更新管理界面只会加载最新版本和前一版本
-2.  客户端配置文件说明(AutoUpdate.json):
-        {
-          "IsUseAutoUpdateJson": true,//true,使用此配置文件来运行(自动更新客户端),false使用脚本传参数方式运行
-          "ClientName": "App1",//要更新的客户端名称,对应服务端的[客户端目录]名称
-          "ClientVersion": 0,//要更新的客户端版本,对应服务端的[版本目录]名称
-          "UpdatePath": "..\\Client",//要更新的客户端路径,仅支持相对路径
-          "FileName": "AnyeSoft.Client",//用于关闭和启动客户端程序的名称(普通程序或服务程序)
-          "EnumAutoUpdate": 0,//0普通程序,1服务程序
-          "IsConsoleReadKey": true//true等待用户按键后关闭程序,false执行完直接关闭
-        }
-3.  xxxx
+1.运行服务端:
+	a.windows:双击运行[Anye.Soft.AutoUpdate.Server.exe]
+	b.linux:先进入[程序目录],之后执行:bash linux_run.sh
 
-#### 参与贡献
+2.使用管理端程序:
+	a.运行[Anye.Soft.AutoUpdate.Manage.exe]
+	b.创建更新服务: [新增服务] => 在列表里双击<刚刚新增的服务>
+	c.创建更新库:   => [创建更新库]
+	d.创建程序版本: => [新增版本] => [导入目录] => [发布]
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+3.使用命令端程序(先进入程序目录):
+	a.windows
+		a-1.添加更新库配置:Anye.Soft.AutoUpdate.Exec.exe add -n app1 -t 127.0.0.1:9999 -u updater -k 123456 -l app1
+		a-2.执行更新:Anye.Soft.AutoUpdate.Exec.exe update -n app1
+		或.直接执行:Anye.Soft.AutoUpdate.Exec.exe run -t 127.0.0.1:9999 -u updater -k 123456 -l app1
+	b.linux
+		b-1.添加更新库配置:dotnet Anye.Soft.AutoUpdate.Exec.dll add -n app1 -t 127.0.0.1:9999 -u updater -k 123456 -l app1
+		b-2.执行更新:dotnet Anye.Soft.AutoUpdate.Exec.dll update -n app1
+		或.直接执行:dotnet Anye.Soft.AutoUpdate.Exec.dll run -t 127.0.0.1:9999 -u updater -k 123456 -l app1
 
+(详细请看项目下的[使用说明.txt])
 
-#### 特技
+#### 项目说明
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1.  服务端:服务提供接口
+	使用说明.txt
+	Anye.Soft.AutoUpdate.Server.exe #windows程序
+	win_install.bat #安装成windows服务
+	win_start_service.bat #启动windows服务
+	win_stop_service.bat #停止windows服务
+	win_uninstall.bat #卸载windows服务
+	Anye.Soft.AutoUpdate.Server.dll #linux程序
+	anyesoft.autoupdate.service #linux服务配置
+	linux_disable_service.sh #linux服务取消开机启动
+	linux_enable_service.sh #linux服务开机启动
+	linux_restart_service.sh #linux服务重启
+	linux_start_service.sh #linux服务启动
+	linux_stop_service.sh #linux服务停止
+	linux_run.sh #linux程序后台运行
+	log4net.config #日志配置
+	server.json #配置文件
+	
+2.  管理端:连接服务端,管理更新库信息
+	使用说明.txt
+	Anye.Soft.AutoUpdate.Manage.exe #windows程序
+	log4net.config #日志配置
+	
+3.  命令端:连接服务端,获取更新库信息,实现自动更新程序
+	使用说明.txt
+	Anye.Soft.AutoUpdate.Exec.exe #windows程序
+	Anye.Soft.AutoUpdate.Exec.dll #linux程序
+	log4net.config #日志配置
+	
+	
+	
+	
+

@@ -27,11 +27,9 @@ namespace Anye.Soft.Common
         {
             m_fileSystemWatcher.Path = dirPath;
             m_fileSystemWatcher.Filter = filter;
-            m_fileSystemWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.Size;
             m_fileSystemWatcher.IncludeSubdirectories = includeSubDir;
             m_fileSystemWatcher.Created += new FileSystemEventHandler(OnChange);
             m_fileSystemWatcher.Changed += new FileSystemEventHandler(OnChange);
-
             m_timer = new Timer(OnTimeout, null, Timeout.Infinite, Timeout.Infinite);
         }
 
@@ -53,10 +51,11 @@ namespace Anye.Soft.Common
                 // Start a timer if not already started
                 if (!m_timerStarted)
                 {
-                    m_timer.Change(100, 100);
+                    m_timer.Change(200, Timeout.Infinite);
                     m_timerStarted = true;
                 }
             }
+
         }
 
         private void OnTimeout(object state)
@@ -68,13 +67,11 @@ namespace Anye.Soft.Common
             {
                 // Get a list of all paths that should have events thrown
                 paths = FindReadyPaths(m_pendingEvents);
-
                 // Remove paths that are going to be used now
                 paths.ForEach(delegate (string path)
                 {
                     m_pendingEvents.Remove(path);
                 });
-
                 // Stop the timer if there are no more events pending
                 if (m_pendingEvents.Count == 0)
                 {
@@ -88,6 +85,7 @@ namespace Anye.Soft.Common
             {
                 FireEvent(path);
             });
+
         }
 
         private List<string> FindReadyPaths(Dictionary<string, DateTime> events)

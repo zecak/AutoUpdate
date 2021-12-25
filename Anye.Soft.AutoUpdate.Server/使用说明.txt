@@ -1,0 +1,24 @@
+﻿[暗夜软件自动更新v2.0]
+
+服务端:Anye.Soft.AutoUpdate.Server
+------------------------------
+说明:服务提供接口
+=========================================================
+使用教程(先安装.net5运行环境哈~):
+1.配置[server.json]
+ a.windows:双击运行[Anye.Soft.AutoUpdate.Server.exe]
+ b.linux:进入[程序目录]运行[bash linux_run.sh]
+---------------------------------------------------------
+以服务方式运行:
+[windows](以管理员身份运行):
+执行[win_install.bat]安装成系统服务并运行
+
+[linux](记得给权限):
+1.先进入[程序目录]
+2.修改[anyesoft.autoupdate.service]里的路径[ExecStart=..]和[WorkingDirectory=..]改为实际存放的路径!!
+3.将修改完的[anyesoft.autoupdate.service]文件复制到[/usr/lib/systemd/system]目录
+命令如下:
+sudo cp anyesoft.autoupdate.service /usr/lib/systemd/system/anyesoft.autoupdate.service
+4.执行[linux_start_service.sh]启动服务(执行[linux_enable_service.sh]设置开机运行)
+命令如下:
+bash linux_start_service.sh

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace Anye.Soft.Common
 {
@@ -10,12 +11,12 @@ namespace Anye.Soft.Common
 
         #region 类型转换
 
+        public static int[]ToInts(this string[] strlist)
+        {
+            int[] data =Array.ConvertAll(strlist,int.Parse);
+            return data;
+        }
 
-        /// <summary>
-        /// 返回int整数,转换失败时返回int默认值
-        /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
         public static int ToInt(this string s)
         {
             int data;
@@ -466,6 +467,42 @@ namespace Anye.Soft.Common
         #endregion
 
         #region 验证操作
+
+        /// <summary>
+        /// 检查文件名(或文件夹)合法性
+        /// </summary>
+        /// <param name="strln"></param>
+        /// <returns></returns>
+        public static bool IsFileName(this string strln)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(strln)) { return false; }
+                if (strln.Length == 0 || strln.Length > 255) { return false; }
+
+                var first_black_list = new char[] { '+', '-', '.' };
+                if (first_black_list.Contains(strln[0]))
+                {
+                    return false;
+                }
+                var black_list = new char[] {'/', '\t', '\b', '@', '#', '$', '%', '^', '&', '*', '(', ')', '[',
+
+']','\\', ':', ',', '?', '\"', '<', '>', '|' };
+                for(int i = 0; i < black_list.Length; i++)
+                {
+                    if (strln.Contains(black_list[i]))
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         /// <summary>
         /// 判断字符串是否是字符开头为a-zA-Z_中文,其他字符是否是字母数字下划线中文（1-50位范围内）

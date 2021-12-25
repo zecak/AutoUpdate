@@ -1,0 +1,144 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Anye.Soft.AutoUpdate.Manage.Views" 
+             xmlns:s="https://github.com/canton7/Stylet"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" x:Class="Anye.Soft.AutoUpdate.Manage.Views.ContentControlView"
+             mc:Ignorable="d" x:Name="MyContent"
+             d:DataContext="{d:DesignInstance {x:Type local:ContentControlViewModel}}"
+             d:DesignHeight="450" d:DesignWidth="600">
+    <Grid>
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top">
+                <DockPanel DockPanel.Dock="Right">
+                    <Button Margin="2" VerticalAlignment="Bottom" Command="{s:Action ShowAddUpdateLibView}" Style="{StaticResource MahApps.Styles.Button.Flat}" IsEnabled="{Binding IsLink}">
+                        <TextBlock Margin="2" Text="创建更新库"/>
+                    </Button>
+                    <Button Margin="2" VerticalAlignment="Bottom" Command="{s:Action ShowDelUpdateLib}" Style="{StaticResource MahApps.Styles.Button.Flat}" IsEnabled="{Binding IsLink}">
+                        <TextBlock Margin="2" Text="删除更新库"/>
+                    </Button>
+                    <TextBlock Margin="2" VerticalAlignment="Bottom"/>
+                </DockPanel>
+                <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <TextBlock Margin="2" Text="{Binding DataModel.Name}" Foreground="#FFEC6E27" FontSize="30" FontWeight="Bold"></TextBlock>
+                    <TextBlock Margin="2" Text="{Binding DataModel.IPort}" Foreground="#FFEC6E27" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Bottom"></TextBlock>
+                </DockPanel>
+                
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Bottom">
+                <TextBlock Text="{Binding ActionName}" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                </TextBlock>
+                <StackPanel Margin="4 0" Orientation="Vertical">
+                    <TextBlock Text="{Binding ActionInfo}" >
+                    </TextBlock>
+                    <mah:MetroProgressBar Margin="2" Maximum="{Binding BlockActionCount}" Minimum="0" Value="{Binding BlockActionCurIndex}" Background="#FFD1D1D1" />
+                    <mah:MetroProgressBar Height="15" Margin="2" Maximum="{Binding ActionCount}" Minimum="0" Value="{Binding ActionCurIndex}"  Background="#FFD1D1D1"/>
+                    <mah:MetroProgressBar Margin="2" Visibility="{Binding IsCompleted,Converter={StaticResource BoolToNotVisibility}}" IsIndeterminate="True" Maximum="{Binding ActionCount}" Minimum="0" Value="0"  Background="#FFD1D1D1" />
+                </StackPanel>
+            </DockPanel>
+            <DockPanel>
+                <mah:MetroAnimatedSingleRowTabControl ItemsSource="{Binding DataModel.Libs}" SelectedItem="{Binding SelectUpdateLib}" mah:TabControlHelper.Underlined="TabPanel" mah:TabControlHelper.UnderlinePlacement="Bottom" TabStripPlacement="Left" >
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                    <TabControl.ContentTemplate>
+                        <DataTemplate>
+                            <DockPanel Margin="4">
+                                <DockPanel DockPanel.Dock="Top" >
+                                    <DockPanel DockPanel.Dock="Right">
+                                        <Button Margin="2" Command="{s:Action AddVerLib}" Style="{StaticResource MahApps.Styles.Button.Flat}">
+                                            <TextBlock Text="新增版本"/>
+                                        </Button>
+                                        <Button Margin="2" Command="{s:Action SettingVerLib}" CommandParameter="{Binding LibVersionInfoUI}" Style="{StaticResource MahApps.Styles.Button.Flat}">
+                                            <TextBlock Text="版本设置"/>
+                                        </Button>
+                                        <Button Margin="2" Command="{s:Action DelVerLib}" CommandParameter="{Binding LibVersionInfoUI}"  Style="{StaticResource MahApps.Styles.Button.Flat}">
+                                            <TextBlock Text="删除版本"/>
+                                        </Button>
+                                        
+                                    </DockPanel>
+                                    <TextBlock/>
+                                </DockPanel>
+                               
+                                <mah:MetroAnimatedSingleRowTabControl ItemsSource="{Binding Configs}" mah:TabControlHelper.Underlined="TabPanel" mah:TabControlHelper.UnderlinePlacement="Bottom" SelectedItem="{Binding LibVersionInfoUI}">
+                                    <TabControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel>
+                                                <DockPanel.ToolTip>
+                                                    <StackPanel>
+                                                        <DockPanel>
+                                                            <TextBlock Text="已发布:"></TextBlock>
+                                                            <TextBlock Text="是" Visibility="{Binding IsRelease,Converter={StaticResource BoolToVisibility}}"></TextBlock>
+                                                            <TextBlock Text="否" Visibility="{Binding IsRelease,Converter={StaticResource BoolToNotVisibility}}"></TextBlock>
+                                                        </DockPanel>
+                                                        <DockPanel>
+                                                            <TextBlock Text="版本描述:"></TextBlock>
+                                                            <TextBlock Text="{Binding VersionText}"></TextBlock>
+                                                        </DockPanel>
+                                                        <DockPanel>
+                                                            <TextBlock Text="发行说明:"></TextBlock>
+                                                            <TextBlock Text="{Binding ReleaseNotes}"></TextBlock>
+                                                        </DockPanel>
+                                                    </StackPanel>
+                                                </DockPanel.ToolTip>
+                                                <TextBlock Text="版本"/>
+                                                <TextBlock Text="{Binding Version}"/>
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </TabControl.ItemTemplate>
+                                    <TabControl.ContentTemplate>
+                                        <DataTemplate>
+                                            <DockPanel Margin="4">
+                                                <DockPanel DockPanel.Dock="Top" >
+                                                    <DockPanel DockPanel.Dock="Right">
+                                                        <Button Margin="2" IsEnabled="{Binding IsRelease,Converter={StaticResource BoolToNot}}" Command="{s:Action AddDirFiles}" CommandParameter="{Binding }"  Style="{StaticResource MahApps.Styles.Button.Flat}">
+                                                            <TextBlock Text="导入目录"/>
+                                                        </Button>
+                                                        <Button Margin="2" IsEnabled="{Binding IsRelease,Converter={StaticResource BoolToNot}}" Command="{s:Action AddFiles}" CommandParameter="{Binding }"  Style="{StaticResource MahApps.Styles.Button.Flat}">
+                                                            <TextBlock Text="导入文件"/>
+                                                        </Button>
+                                                        <Button Margin="2" IsEnabled="{Binding IsRelease,Converter={StaticResource BoolToNot}}" Command="{s:Action DelFile}" CommandParameter="{Binding FileVersionModel}" Style="{StaticResource MahApps.Styles.Button.Flat}">
+                                                            <TextBlock Text="删除文件"/>
+                                                        </Button>
+                                                        <Button Margin="2" IsEnabled="{Binding IsRelease,Converter={StaticResource BoolToNot}}" Command="{s:Action PublishApp}" Style="{StaticResource MahApps.Styles.Button.Flat}">
+                                                            <TextBlock Text="发布"/>
+                                                        </Button>
+                                                        <Button Margin="2" IsEnabled="{Binding IsRelease}" Command="{s:Action UnPublishApp}" Style="{StaticResource MahApps.Styles.Button.Flat}">
+                                                            <TextBlock Text="取消发布"/>
+                                                        </Button>
+                                                        <!--<Button Margin="2" Command="{s:Action SetTag}"  Style="{StaticResource MahApps.Styles.Button.Flat}">
+                                                            <TextBlock Text="添加操作"/>
+                                                        </Button>-->
+                                                    </DockPanel>
+                                                    <TextBlock/>
+                                                </DockPanel>
+                                                <DataGrid ItemsSource="{Binding FileVersions}" AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow" SelectedValue="{Binding FileVersionModel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Tag="{Binding IsRelease,Converter={StaticResource BoolToNot}}">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="文件名" Binding="{Binding FileName}" IsReadOnly="True" Width="4*"/>
+                                                        <DataGridTextColumn Header="文件大小" Binding="{Binding FileSize}" IsReadOnly="True" Width="1.5*"/>
+                                                        <DataGridComboBoxColumn  Header="文件类型" SelectedItemBinding="{Binding FileType}" ItemsSource="{Binding Source={StaticResource ToFileTypeName}}" IsReadOnly="True" Width="1.5*"/>
+                                                        <DataGridComboBoxColumn  Header="操作类型" SelectedItemBinding="{Binding Action}" ItemsSource="{Binding Source={StaticResource ToUpdateActionName}}" IsReadOnly="True" Width="1.5*" />
+                                                        <DataGridTextColumn Header="MD5" Binding="{Binding MD5}" IsReadOnly="True" Width="4*"/>
+
+                                                    </DataGrid.Columns>
+
+                                                </DataGrid>
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </TabControl.ContentTemplate>
+                                </mah:MetroAnimatedSingleRowTabControl>
+                            </DockPanel>
+                        </DataTemplate>
+                    </TabControl.ContentTemplate>
+                </mah:MetroAnimatedSingleRowTabControl>
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</UserControl>

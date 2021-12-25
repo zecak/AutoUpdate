@@ -1,0 +1,28 @@
+﻿<mah:MetroWindow x:Class="Anye.Soft.AutoUpdate.Manage.Views.MessageBoxView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Anye.Soft.AutoUpdate.Manage.Views"
+        mc:Ignorable="d"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+         xmlns:s="https://github.com/canton7/Stylet"
+        d:DataContext="{d:DesignInstance local:MessageBoxViewModel}"
+        Title="{Binding Title}" Height="200" Width="300" ResizeMode="NoResize" IsMaxRestoreButtonEnabled="False" IsMinButtonEnabled="False" Background="#FFE4E4E4">
+    <Grid Margin="4">
+        <DockPanel>
+            <DockPanel Margin="4" DockPanel.Dock="Bottom" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Margin="4" Padding="16 4" Style="{StaticResource MahApps.Styles.Button.Flat}" Command="{s:Action OKButton}">
+                    <TextBlock Text="确定"></TextBlock>
+                </Button>
+                <Button Margin="4" Padding="16 4" Style="{StaticResource MahApps.Styles.Button.Flat}" Command="{s:Action CancelButton}">
+                    <TextBlock Text="取消"></TextBlock>
+                </Button>
+                <TextBlock></TextBlock>
+            </DockPanel>
+            <DockPanel Margin="4" Background="White" HorizontalAlignment="Stretch">
+                <TextBlock Margin="4" Text="{Binding Text}" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</mah:MetroWindow>

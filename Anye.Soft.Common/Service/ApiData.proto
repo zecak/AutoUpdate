@@ -16,7 +16,9 @@ message APIRequest {
 	int64 Time=5;//时间戳
 	string Token=6;//用户Token
 	int32 FileBlock = 7;//文件块(用于文件上传等)
-	bytes FileContents = 8;//文件内容字节(用于文件上传等)
+	int32 FileBlockLastIndex = 8;//文件块最后索引(用于文件上传等)
+	bytes FileContents = 9;//文件内容字节(用于文件上传等)
+	
 }
 
 message APIReply {
@@ -25,6 +27,8 @@ message APIReply {
 	string Msg=3;//提示信息
 	string Action=4;//操作类型(用于客户端执行某些操作)
 	int32 FileBlock = 5;//文件块(用于文件下载等)
-	bytes FileContents = 6;//文件内容字节(用于文件下载等)
+	int32 FileBlockLastIndex = 6;//文件块最后索引(用于文件上传等)
+	bytes FileContents = 7;//文件内容字节(用于文件下载等)
+	
 }
 

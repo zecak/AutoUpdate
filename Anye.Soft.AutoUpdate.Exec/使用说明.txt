@@ -1,0 +1,47 @@
+﻿[暗夜软件自动更新v2.0]
+
+命令端:Anye.Soft.AutoUpdate.Exec
+--------------------------------------------
+说明:连接服务端,获取更新库信息,实现自动更新程序
+==========================================================
+使用教程(先安装.net5运行环境哈~):
+-------------------------------------------
+[windows]
+运行CMD,转到<命令端程序>目录下
+ => 显示帮助
+  -> Anye.Soft.AutoUpdate.Exec.exe 
+  -> Anye.Soft.AutoUpdate.Exec.exe add --help
+  -> Anye.Soft.AutoUpdate.Exec.exe get --help
+  -> Anye.Soft.AutoUpdate.Exec.exe update --help
+  -> ...
+
+ => 添加更新库配置
+  -> Anye.Soft.AutoUpdate.Exec.exe add -n app1 -t 127.0.0.1:9999 -u updater -k 123456 -l app1
+
+ => 执行更新
+  -> Anye.Soft.AutoUpdate.Exec.exe update -n app1
+
+或 直接执行
+  ->  Anye.Soft.AutoUpdate.Exec.exe run -t 127.0.0.1:9999 -u updater -k 123456 -l app1
+
+------------------------------------------------------------------------
+[linux]
+转到<命令端程序>目录下
+ => 显示帮助
+  -> dotnet Anye.Soft.AutoUpdate.Exec.dll 
+  -> dotnet Anye.Soft.AutoUpdate.Exec.dll add --help
+  -> dotnet Anye.Soft.AutoUpdate.Exec.dll get --help
+  -> dotnet Anye.Soft.AutoUpdate.Exec.dll update --help
+  -> ...
+
+ => 添加更新库配置
+  -> dotnet Anye.Soft.AutoUpdate.Exec.dll add -n app1 -t 127.0.0.1:9999 -u updater -k 123456 -l app1
+
+ => 执行更新
+  -> dotnet Anye.Soft.AutoUpdate.Exec.dll update -n app1
+
+或 直接执行
+  -> dotnet Anye.Soft.AutoUpdate.Exec.dll run -t 127.0.0.1:9999 -u updater -k 123456 -l app1
+
+=====================================================================================================
+注:应用程序更新后需要自动启动,需要设置"-f app1.exe"或"-e dotnet -f app1.dll"

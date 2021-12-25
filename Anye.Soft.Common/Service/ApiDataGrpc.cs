@@ -12,38 +12,8 @@ namespace AnyeSoft.Common.Service {
   {
     static readonly string __ServiceName = "AnyeSoft.Common.Service.gRPC";
 
-    static void __Helper_SerializeMessage(global::Google.Protobuf.IMessage message, grpc::SerializationContext context)
-    {
-      #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
-      if (message is global::Google.Protobuf.IBufferMessage)
-      {
-        context.SetPayloadLength(message.CalculateSize());
-        global::Google.Protobuf.MessageExtensions.WriteTo(message, context.GetBufferWriter());
-        context.Complete();
-        return;
-      }
-      #endif
-      context.Complete(global::Google.Protobuf.MessageExtensions.ToByteArray(message));
-    }
-
-    static class __Helper_MessageCache<T>
-    {
-      public static readonly bool IsBufferMessage = global::System.Reflection.IntrospectionExtensions.GetTypeInfo(typeof(global::Google.Protobuf.IBufferMessage)).IsAssignableFrom(typeof(T));
-    }
-
-    static T __Helper_DeserializeMessage<T>(grpc::DeserializationContext context, global::Google.Protobuf.MessageParser<T> parser) where T : global::Google.Protobuf.IMessage<T>
-    {
-      #if !GRPC_DISABLE_PROTOBUF_BUFFER_SERIALIZATION
-      if (__Helper_MessageCache<T>.IsBufferMessage)
-      {
-        return parser.ParseFrom(context.PayloadAsReadOnlySequence());
-      }
-      #endif
-      return parser.ParseFrom(context.PayloadAsNewBuffer());
-    }
-
-    static readonly grpc::Marshaller<global::AnyeSoft.Common.Service.APIRequest> __Marshaller_AnyeSoft_Common_Service_APIRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AnyeSoft.Common.Service.APIRequest.Parser));
-    static readonly grpc::Marshaller<global::AnyeSoft.Common.Service.APIReply> __Marshaller_AnyeSoft_Common_Service_APIReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::AnyeSoft.Common.Service.APIReply.Parser));
+    static readonly grpc::Marshaller<global::AnyeSoft.Common.Service.APIRequest> __Marshaller_AnyeSoft_Common_Service_APIRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AnyeSoft.Common.Service.APIRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::AnyeSoft.Common.Service.APIReply> __Marshaller_AnyeSoft_Common_Service_APIReply = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::AnyeSoft.Common.Service.APIReply.Parser.ParseFrom);
 
     static readonly grpc::Method<global::AnyeSoft.Common.Service.APIRequest, global::AnyeSoft.Common.Service.APIReply> __Method_Exec = new grpc::Method<global::AnyeSoft.Common.Service.APIRequest, global::AnyeSoft.Common.Service.APIReply>(
         grpc::MethodType.Unary,
@@ -66,11 +36,10 @@ namespace AnyeSoft.Common.Service {
     }
 
     /// <summary>Base class for server-side implementations of gRPC</summary>
-    [grpc::BindServiceMethod(typeof(gRPC), "BindService")]
     public abstract partial class gRPCBase
     {
       /// <summary>
-      ///简单rpc
+      ///简单rpc:用于接口调用
       /// </summary>
       /// <param name="request">The request received from the client.</param>
       /// <param name="context">The context of the server-side call handler being invoked.</param>
@@ -81,7 +50,7 @@ namespace AnyeSoft.Common.Service {
       }
 
       /// <summary>
-      ///双向流rpc
+      ///双向流rpc:用于文件下载或保持连接
       /// </summary>
       /// <param name="requestStream">Used for reading requests from the client.</param>
       /// <param name="responseStream">Used for sending responses back to the client.</param>
@@ -99,7 +68,7 @@ namespace AnyeSoft.Common.Service {
     {
       /// <summary>Creates a new client for gRPC</summary>
       /// <param name="channel">The channel to use to make remote calls.</param>
-      public gRPCClient(grpc::ChannelBase channel) : base(channel)
+      public gRPCClient(grpc::Channel channel) : base(channel)
       {
       }
       /// <summary>Creates a new client for gRPC that uses a custom <c>CallInvoker</c>.</summary>
@@ -118,7 +87,7 @@ namespace AnyeSoft.Common.Service {
       }
 
       /// <summary>
-      ///简单rpc
+      ///简单rpc:用于接口调用
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -130,7 +99,7 @@ namespace AnyeSoft.Common.Service {
         return Exec(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
-      ///简单rpc
+      ///简单rpc:用于接口调用
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -140,7 +109,7 @@ namespace AnyeSoft.Common.Service {
         return CallInvoker.BlockingUnaryCall(__Method_Exec, null, options, request);
       }
       /// <summary>
-      ///简单rpc
+      ///简单rpc:用于接口调用
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
@@ -152,7 +121,7 @@ namespace AnyeSoft.Common.Service {
         return ExecAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
-      ///简单rpc
+      ///简单rpc:用于接口调用
       /// </summary>
       /// <param name="request">The request to send to the server.</param>
       /// <param name="options">The options for the call.</param>
@@ -162,7 +131,7 @@ namespace AnyeSoft.Common.Service {
         return CallInvoker.AsyncUnaryCall(__Method_Exec, null, options, request);
       }
       /// <summary>
-      ///双向流rpc
+      ///双向流rpc:用于文件下载或保持连接
       /// </summary>
       /// <param name="headers">The initial metadata to send with the call. This parameter is optional.</param>
       /// <param name="deadline">An optional deadline for the call. The call will be cancelled if deadline is hit.</param>
@@ -173,7 +142,7 @@ namespace AnyeSoft.Common.Service {
         return Chat(new grpc::CallOptions(headers, deadline, cancellationToken));
       }
       /// <summary>
-      ///双向流rpc
+      ///双向流rpc:用于文件下载或保持连接
       /// </summary>
       /// <param name="options">The options for the call.</param>
       /// <returns>The call object.</returns>
@@ -195,16 +164,6 @@ namespace AnyeSoft.Common.Service {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Exec, serviceImpl.Exec)
           .AddMethod(__Method_Chat, serviceImpl.Chat).Build();
-    }
-
-    /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
-    /// Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
-    /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
-    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
-    public static void BindService(grpc::ServiceBinderBase serviceBinder, gRPCBase serviceImpl)
-    {
-      serviceBinder.AddMethod(__Method_Exec, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::AnyeSoft.Common.Service.APIRequest, global::AnyeSoft.Common.Service.APIReply>(serviceImpl.Exec));
-      serviceBinder.AddMethod(__Method_Chat, serviceImpl == null ? null : new grpc::DuplexStreamingServerMethod<global::AnyeSoft.Common.Service.APIRequest, global::AnyeSoft.Common.Service.APIReply>(serviceImpl.Chat));
     }
 
   }

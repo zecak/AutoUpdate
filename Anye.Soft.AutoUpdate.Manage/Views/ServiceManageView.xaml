@@ -1,0 +1,50 @@
+﻿<mah:MetroWindow x:Class="Anye.Soft.AutoUpdate.Manage.Views.ServiceManageView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Anye.Soft.AutoUpdate.Manage.Views"
+        mc:Ignorable="d"
+         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+         xmlns:s="https://github.com/canton7/Stylet"
+        d:DataContext="{d:DesignInstance local:ServiceManageViewModel}"
+        Title="服务管理" Height="280" Width="300" ResizeMode="NoResize">
+    <Grid Margin="10">
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                <Button Margin="4" Command="{s:Action Add}" Visibility="{Binding IsEdit,Converter={StaticResource BoolToNotVisibility}}" Style="{StaticResource MahApps.Styles.Button.Flat}">
+                    <TextBlock Text="新增" Margin="4"></TextBlock>
+                </Button>
+                <Button Margin="4" Command="{s:Action Edit}" Visibility="{Binding IsEdit,Converter={StaticResource BoolToVisibility}}" Style="{StaticResource MahApps.Styles.Button.Flat}">
+                    <TextBlock Text="修改" Margin="4"></TextBlock>
+                </Button>
+                <Button Margin="4" Command="{s:Action Close}" Style="{StaticResource MahApps.Styles.Button.Flat}">
+                    <TextBlock Text="关闭" Margin="4"></TextBlock>
+                </Button>
+                <TextBlock></TextBlock>
+            </DockPanel>
+            <StackPanel>
+                <DockPanel Margin="4">
+                    <TextBlock Text="服务名称:"></TextBlock>
+                    <TextBox Text="{Binding DataModel.Name}"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="4">
+                    <TextBlock Text="地址端口:"></TextBlock>
+                    <TextBox Text="{Binding DataModel.IPort}"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="4">
+                    <TextBlock Text="管理账号:"></TextBlock>
+                    <TextBox Text="{Binding DataModel.AdminName}"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="4">
+                    <TextBlock Text="管理密钥:"></TextBlock>
+                    <TextBox Text="{Binding DataModel.ServerKey}"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="4">
+                    <TextBlock Text="备注信息:"></TextBlock>
+                    <TextBox Text="{Binding DataModel.Remarks}"></TextBox>
+                </DockPanel>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</mah:MetroWindow>

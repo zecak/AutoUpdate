@@ -8,8 +8,8 @@ namespace Anye.Soft.Common.Models
 {
     public class ApiDownFileModel
     {
-        public string ClientName { get; set; }
-        public int ClientVersion { get; set; }
+        public string UpdateLibName { get; set; }
+        public int Version { get; set; }
 
         public string FileName { get; set; }
     }

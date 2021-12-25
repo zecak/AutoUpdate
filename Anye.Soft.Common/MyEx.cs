@@ -8,6 +8,16 @@ namespace Anye.Soft.Common
 {
     public static class MyEx
     {
+        public static string MD5FileForBytes(this byte[] filebytes)
+        {
+            byte[] file = filebytes;
+            byte[] b = new System.Security.Cryptography.MD5CryptoServiceProvider().ComputeHash(file);
+            string ret = "";
+            for (int i = 0; i < b.Length; i++)
+                ret += b[i].ToString("X").PadLeft(2, '0');
+            return ret;
+        }
+
         public static string MD5File(this string fileName)
         {
             if (!File.Exists(fileName)) { throw new Exception("文件不存在"); }
@@ -29,19 +39,26 @@ namespace Anye.Soft.Common
             return ret;
         }
 
-        public static string ToJson(this object obj)
+        public static string DateTimeFormat { get; set; } = "yyyy/MM/dd HH:mm:ss.fffffff";
+        public static string ToJson(this object obj, bool isFormatting = false)
         {
             try
             {
-                var datetimeFormat = "yyyy-MM-dd HH:mm:ss.fffffff";
+                var datetimeFormat = DateTimeFormat;
                 var dtc = new Newtonsoft.Json.Converters.IsoDateTimeConverter();
                 dtc.DateTimeFormat = datetimeFormat;
                 //日期和间都管用  
                 JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+
+                jsSettings.TypeNameHandling = TypeNameHandling.Auto;
+
                 jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 jsSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
                 jsSettings.NullValueHandling = NullValueHandling.Ignore;
-                jsSettings.Formatting = Formatting.Indented;
+                if (isFormatting)
+                {
+                    jsSettings.Formatting = Formatting.Indented;
+                }
                 jsSettings.Converters.Add(dtc);
                 return JsonConvert.SerializeObject(obj, jsSettings);
             }
@@ -57,23 +74,56 @@ namespace Anye.Soft.Common
             try
             {
 
-                var datetimeFormat = "yyyy-MM-dd HH:mm:ss.fffffff";
+                var datetimeFormat = DateTimeFormat;
                 var dtc = new Newtonsoft.Json.Converters.IsoDateTimeConverter();
                 dtc.DateTimeFormat = datetimeFormat;
 
 
                 //日期和间都管用  
                 JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+
+                jsSettings.TypeNameHandling = TypeNameHandling.Auto;
+
                 jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 jsSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
                 jsSettings.NullValueHandling = NullValueHandling.Ignore;
-                jsSettings.Formatting = Formatting.Indented;
+                //jsSettings.Formatting = Formatting.Indented;
                 jsSettings.Converters.Add(dtc);
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(json, jsSettings);
             }
             catch (Exception ex)
             {
                 return default(T);
+            }
+
+        }
+
+        public static string ToBase64Encode(this string data)
+        {
+            try
+            {
+                if (data == null) { return ""; }
+                byte[] b = System.Text.Encoding.UTF8.GetBytes(data);
+                return Convert.ToBase64String(b);
+            }
+            catch (Exception ex)
+            {
+                return data;
+            }
+
+        }
+
+        public static string ToBase64Decode(this string result)
+        {
+            try
+            {
+                byte[] bytes = Convert.FromBase64String(result);
+                return System.Text.Encoding.UTF8.GetString(bytes);
+
+            }
+            catch (Exception ex)
+            {
+                return result;
             }
 
         }

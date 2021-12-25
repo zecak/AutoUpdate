@@ -1,0 +1,12 @@
+{
+  "ServerIP": "0.0.0.0",
+  "ServerPort": "9999",
+  "Admin": {
+    "Name": "anye",
+    "Pass": "20210615"
+  },
+  "Updater": {
+    "Name": "updater",
+    "Pass": "123456"
+  }
+}

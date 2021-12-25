@@ -24,33 +24,30 @@ namespace AnyeSoft.Common.Service {
     static ApiDataReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Cg1BcGlEYXRhLnByb3RvEhdBbnllU29mdC5Db21tb24uU2VydmljZSKOAQoK",
+            "Cg1BcGlEYXRhLnByb3RvEhdBbnllU29mdC5Db21tb24uU2VydmljZSKqAQoK",
             "QVBJUmVxdWVzdBIPCgdBcGlQYXRoGAEgASgJEgwKBERhdGEYAiABKAkSDQoF",
             "QXBwSUQYAyABKAkSDAoEU2lnbhgEIAEoCRIMCgRUaW1lGAUgASgDEg0KBVRv",
-            "a2VuGAYgASgJEhEKCUZpbGVCbG9jaxgHIAEoBRIUCgxGaWxlQ29udGVudHMY",
-            "CCABKAwibAoIQVBJUmVwbHkSDAoEQ29kZRgBIAEoBRIMCgREYXRhGAIgASgJ",
-            "EgsKA01zZxgDIAEoCRIOCgZBY3Rpb24YBCABKAkSEQoJRmlsZUJsb2NrGAUg",
-            "ASgFEhQKDEZpbGVDb250ZW50cxgGIAEoDDKuAQoEZ1JQQxJQCgRFeGVjEiMu",
-            "QW55ZVNvZnQuQ29tbW9uLlNlcnZpY2UuQVBJUmVxdWVzdBohLkFueWVTb2Z0",
-            "LkNvbW1vbi5TZXJ2aWNlLkFQSVJlcGx5IgASVAoEQ2hhdBIjLkFueWVTb2Z0",
-            "LkNvbW1vbi5TZXJ2aWNlLkFQSVJlcXVlc3QaIS5BbnllU29mdC5Db21tb24u",
-            "U2VydmljZS5BUElSZXBseSIAKAEwAWIGcHJvdG8z"));
+            "a2VuGAYgASgJEhEKCUZpbGVCbG9jaxgHIAEoBRIaChJGaWxlQmxvY2tMYXN0",
+            "SW5kZXgYCCABKAUSFAoMRmlsZUNvbnRlbnRzGAkgASgMIogBCghBUElSZXBs",
+            "eRIMCgRDb2RlGAEgASgFEgwKBERhdGEYAiABKAkSCwoDTXNnGAMgASgJEg4K",
+            "BkFjdGlvbhgEIAEoCRIRCglGaWxlQmxvY2sYBSABKAUSGgoSRmlsZUJsb2Nr",
+            "TGFzdEluZGV4GAYgASgFEhQKDEZpbGVDb250ZW50cxgHIAEoDDKuAQoEZ1JQ",
+            "QxJQCgRFeGVjEiMuQW55ZVNvZnQuQ29tbW9uLlNlcnZpY2UuQVBJUmVxdWVz",
+            "dBohLkFueWVTb2Z0LkNvbW1vbi5TZXJ2aWNlLkFQSVJlcGx5IgASVAoEQ2hh",
+            "dBIjLkFueWVTb2Z0LkNvbW1vbi5TZXJ2aWNlLkFQSVJlcXVlc3QaIS5Bbnll",
+            "U29mdC5Db21tb24uU2VydmljZS5BUElSZXBseSIAKAEwAWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::AnyeSoft.Common.Service.APIRequest), global::AnyeSoft.Common.Service.APIRequest.Parser, new[]{ "ApiPath", "Data", "AppID", "Sign", "Time", "Token", "FileBlock", "FileContents" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::AnyeSoft.Common.Service.APIReply), global::AnyeSoft.Common.Service.APIReply.Parser, new[]{ "Code", "Data", "Msg", "Action", "FileBlock", "FileContents" }, null, null, null, null)
+          new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
+            new pbr::GeneratedClrTypeInfo(typeof(global::AnyeSoft.Common.Service.APIRequest), global::AnyeSoft.Common.Service.APIRequest.Parser, new[]{ "ApiPath", "Data", "AppID", "Sign", "Time", "Token", "FileBlock", "FileBlockLastIndex", "FileContents" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::AnyeSoft.Common.Service.APIReply), global::AnyeSoft.Common.Service.APIReply.Parser, new[]{ "Code", "Data", "Msg", "Action", "FileBlock", "FileBlockLastIndex", "FileContents" }, null, null, null)
           }));
     }
     #endregion
 
   }
   #region Messages
-  public sealed partial class APIRequest : pb::IMessage<APIRequest>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
+  public sealed partial class APIRequest : pb::IMessage<APIRequest> {
     private static readonly pb::MessageParser<APIRequest> _parser = new pb::MessageParser<APIRequest>(() => new APIRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -82,6 +79,7 @@ namespace AnyeSoft.Common.Service {
       time_ = other.time_;
       token_ = other.token_;
       fileBlock_ = other.fileBlock_;
+      fileBlockLastIndex_ = other.fileBlockLastIndex_;
       fileContents_ = other.fileContents_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -94,6 +92,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "ApiPath" field.</summary>
     public const int ApiPathFieldNumber = 1;
     private string apiPath_ = "";
+    /// <summary>
+    ///操作地址(类似于web地址方式,如:/api/login)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string ApiPath {
       get { return apiPath_; }
@@ -105,6 +106,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "Data" field.</summary>
     public const int DataFieldNumber = 2;
     private string data_ = "";
+    /// <summary>
+    ///数据(一般是json数据)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Data {
       get { return data_; }
@@ -116,6 +120,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "AppID" field.</summary>
     public const int AppIDFieldNumber = 3;
     private string appID_ = "";
+    /// <summary>
+    ///商户ID(用于请求接口,配合SecretKey使用)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string AppID {
       get { return appID_; }
@@ -127,6 +134,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "Sign" field.</summary>
     public const int SignFieldNumber = 4;
     private string sign_ = "";
+    /// <summary>
+    ///电子签名
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Sign {
       get { return sign_; }
@@ -138,6 +148,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "Time" field.</summary>
     public const int TimeFieldNumber = 5;
     private long time_;
+    /// <summary>
+    ///时间戳
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public long Time {
       get { return time_; }
@@ -149,6 +162,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "Token" field.</summary>
     public const int TokenFieldNumber = 6;
     private string token_ = "";
+    /// <summary>
+    ///用户Token
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Token {
       get { return token_; }
@@ -160,6 +176,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "FileBlock" field.</summary>
     public const int FileBlockFieldNumber = 7;
     private int fileBlock_;
+    /// <summary>
+    ///文件块(用于文件上传等)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int FileBlock {
       get { return fileBlock_; }
@@ -168,9 +187,26 @@ namespace AnyeSoft.Common.Service {
       }
     }
 
+    /// <summary>Field number for the "FileBlockLastIndex" field.</summary>
+    public const int FileBlockLastIndexFieldNumber = 8;
+    private int fileBlockLastIndex_;
+    /// <summary>
+    ///文件块最后索引(用于文件上传等)
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int FileBlockLastIndex {
+      get { return fileBlockLastIndex_; }
+      set {
+        fileBlockLastIndex_ = value;
+      }
+    }
+
     /// <summary>Field number for the "FileContents" field.</summary>
-    public const int FileContentsFieldNumber = 8;
+    public const int FileContentsFieldNumber = 9;
     private pb::ByteString fileContents_ = pb::ByteString.Empty;
+    /// <summary>
+    ///文件内容字节(用于文件上传等)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pb::ByteString FileContents {
       get { return fileContents_; }
@@ -199,6 +235,7 @@ namespace AnyeSoft.Common.Service {
       if (Time != other.Time) return false;
       if (Token != other.Token) return false;
       if (FileBlock != other.FileBlock) return false;
+      if (FileBlockLastIndex != other.FileBlockLastIndex) return false;
       if (FileContents != other.FileContents) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -213,6 +250,7 @@ namespace AnyeSoft.Common.Service {
       if (Time != 0L) hash ^= Time.GetHashCode();
       if (Token.Length != 0) hash ^= Token.GetHashCode();
       if (FileBlock != 0) hash ^= FileBlock.GetHashCode();
+      if (FileBlockLastIndex != 0) hash ^= FileBlockLastIndex.GetHashCode();
       if (FileContents.Length != 0) hash ^= FileContents.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -227,9 +265,6 @@ namespace AnyeSoft.Common.Service {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
       if (ApiPath.Length != 0) {
         output.WriteRawTag(10);
         output.WriteString(ApiPath);
@@ -258,56 +293,18 @@ namespace AnyeSoft.Common.Service {
         output.WriteRawTag(56);
         output.WriteInt32(FileBlock);
       }
+      if (FileBlockLastIndex != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(FileBlockLastIndex);
+      }
       if (FileContents.Length != 0) {
-        output.WriteRawTag(66);
+        output.WriteRawTag(74);
         output.WriteBytes(FileContents);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
-    #endif
     }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (ApiPath.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(ApiPath);
-      }
-      if (Data.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Data);
-      }
-      if (AppID.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(AppID);
-      }
-      if (Sign.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(Sign);
-      }
-      if (Time != 0L) {
-        output.WriteRawTag(40);
-        output.WriteInt64(Time);
-      }
-      if (Token.Length != 0) {
-        output.WriteRawTag(50);
-        output.WriteString(Token);
-      }
-      if (FileBlock != 0) {
-        output.WriteRawTag(56);
-        output.WriteInt32(FileBlock);
-      }
-      if (FileContents.Length != 0) {
-        output.WriteRawTag(66);
-        output.WriteBytes(FileContents);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
@@ -332,6 +329,9 @@ namespace AnyeSoft.Common.Service {
       }
       if (FileBlock != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(FileBlock);
+      }
+      if (FileBlockLastIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(FileBlockLastIndex);
       }
       if (FileContents.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(FileContents);
@@ -368,6 +368,9 @@ namespace AnyeSoft.Common.Service {
       if (other.FileBlock != 0) {
         FileBlock = other.FileBlock;
       }
+      if (other.FileBlockLastIndex != 0) {
+        FileBlockLastIndex = other.FileBlockLastIndex;
+      }
       if (other.FileContents.Length != 0) {
         FileContents = other.FileContents;
       }
@@ -376,9 +379,6 @@ namespace AnyeSoft.Common.Service {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -413,68 +413,21 @@ namespace AnyeSoft.Common.Service {
             FileBlock = input.ReadInt32();
             break;
           }
-          case 66: {
-            FileContents = input.ReadBytes();
+          case 64: {
+            FileBlockLastIndex = input.ReadInt32();
             break;
           }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            ApiPath = input.ReadString();
-            break;
-          }
-          case 18: {
-            Data = input.ReadString();
-            break;
-          }
-          case 26: {
-            AppID = input.ReadString();
-            break;
-          }
-          case 34: {
-            Sign = input.ReadString();
-            break;
-          }
-          case 40: {
-            Time = input.ReadInt64();
-            break;
-          }
-          case 50: {
-            Token = input.ReadString();
-            break;
-          }
-          case 56: {
-            FileBlock = input.ReadInt32();
-            break;
-          }
-          case 66: {
+          case 74: {
             FileContents = input.ReadBytes();
             break;
           }
         }
       }
     }
-    #endif
 
   }
 
-  public sealed partial class APIReply : pb::IMessage<APIReply>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
+  public sealed partial class APIReply : pb::IMessage<APIReply> {
     private static readonly pb::MessageParser<APIReply> _parser = new pb::MessageParser<APIReply>(() => new APIReply());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -504,6 +457,7 @@ namespace AnyeSoft.Common.Service {
       msg_ = other.msg_;
       action_ = other.action_;
       fileBlock_ = other.fileBlock_;
+      fileBlockLastIndex_ = other.fileBlockLastIndex_;
       fileContents_ = other.fileContents_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -516,6 +470,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "Code" field.</summary>
     public const int CodeFieldNumber = 1;
     private int code_;
+    /// <summary>
+    ///返回结果(0:成功,其他值:错误)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int Code {
       get { return code_; }
@@ -527,6 +484,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "Data" field.</summary>
     public const int DataFieldNumber = 2;
     private string data_ = "";
+    /// <summary>
+    ///返回数据(一般是json数据)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Data {
       get { return data_; }
@@ -538,6 +498,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "Msg" field.</summary>
     public const int MsgFieldNumber = 3;
     private string msg_ = "";
+    /// <summary>
+    ///提示信息
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Msg {
       get { return msg_; }
@@ -549,6 +512,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "Action" field.</summary>
     public const int ActionFieldNumber = 4;
     private string action_ = "";
+    /// <summary>
+    ///操作类型(用于客户端执行某些操作)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Action {
       get { return action_; }
@@ -560,6 +526,9 @@ namespace AnyeSoft.Common.Service {
     /// <summary>Field number for the "FileBlock" field.</summary>
     public const int FileBlockFieldNumber = 5;
     private int fileBlock_;
+    /// <summary>
+    ///文件块(用于文件下载等)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int FileBlock {
       get { return fileBlock_; }
@@ -568,9 +537,26 @@ namespace AnyeSoft.Common.Service {
       }
     }
 
+    /// <summary>Field number for the "FileBlockLastIndex" field.</summary>
+    public const int FileBlockLastIndexFieldNumber = 6;
+    private int fileBlockLastIndex_;
+    /// <summary>
+    ///文件块最后索引(用于文件上传等)
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int FileBlockLastIndex {
+      get { return fileBlockLastIndex_; }
+      set {
+        fileBlockLastIndex_ = value;
+      }
+    }
+
     /// <summary>Field number for the "FileContents" field.</summary>
-    public const int FileContentsFieldNumber = 6;
+    public const int FileContentsFieldNumber = 7;
     private pb::ByteString fileContents_ = pb::ByteString.Empty;
+    /// <summary>
+    ///文件内容字节(用于文件下载等)
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public pb::ByteString FileContents {
       get { return fileContents_; }
@@ -597,6 +583,7 @@ namespace AnyeSoft.Common.Service {
       if (Msg != other.Msg) return false;
       if (Action != other.Action) return false;
       if (FileBlock != other.FileBlock) return false;
+      if (FileBlockLastIndex != other.FileBlockLastIndex) return false;
       if (FileContents != other.FileContents) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -609,6 +596,7 @@ namespace AnyeSoft.Common.Service {
       if (Msg.Length != 0) hash ^= Msg.GetHashCode();
       if (Action.Length != 0) hash ^= Action.GetHashCode();
       if (FileBlock != 0) hash ^= FileBlock.GetHashCode();
+      if (FileBlockLastIndex != 0) hash ^= FileBlockLastIndex.GetHashCode();
       if (FileContents.Length != 0) hash ^= FileContents.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -623,9 +611,6 @@ namespace AnyeSoft.Common.Service {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
       if (Code != 0) {
         output.WriteRawTag(8);
         output.WriteInt32(Code);
@@ -646,48 +631,18 @@ namespace AnyeSoft.Common.Service {
         output.WriteRawTag(40);
         output.WriteInt32(FileBlock);
       }
+      if (FileBlockLastIndex != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(FileBlockLastIndex);
+      }
       if (FileContents.Length != 0) {
-        output.WriteRawTag(50);
+        output.WriteRawTag(58);
         output.WriteBytes(FileContents);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
-    #endif
     }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Code != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Code);
-      }
-      if (Data.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Data);
-      }
-      if (Msg.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Msg);
-      }
-      if (Action.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(Action);
-      }
-      if (FileBlock != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(FileBlock);
-      }
-      if (FileContents.Length != 0) {
-        output.WriteRawTag(50);
-        output.WriteBytes(FileContents);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
@@ -706,6 +661,9 @@ namespace AnyeSoft.Common.Service {
       }
       if (FileBlock != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(FileBlock);
+      }
+      if (FileBlockLastIndex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(FileBlockLastIndex);
       }
       if (FileContents.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(FileContents);
@@ -736,6 +694,9 @@ namespace AnyeSoft.Common.Service {
       if (other.FileBlock != 0) {
         FileBlock = other.FileBlock;
       }
+      if (other.FileBlockLastIndex != 0) {
+        FileBlockLastIndex = other.FileBlockLastIndex;
+      }
       if (other.FileContents.Length != 0) {
         FileContents = other.FileContents;
       }
@@ -744,9 +705,6 @@ namespace AnyeSoft.Common.Service {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
       uint tag;
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
@@ -773,52 +731,17 @@ namespace AnyeSoft.Common.Service {
             FileBlock = input.ReadInt32();
             break;
           }
-          case 50: {
-            FileContents = input.ReadBytes();
+          case 48: {
+            FileBlockLastIndex = input.ReadInt32();
             break;
           }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 8: {
-            Code = input.ReadInt32();
-            break;
-          }
-          case 18: {
-            Data = input.ReadString();
-            break;
-          }
-          case 26: {
-            Msg = input.ReadString();
-            break;
-          }
-          case 34: {
-            Action = input.ReadString();
-            break;
-          }
-          case 40: {
-            FileBlock = input.ReadInt32();
-            break;
-          }
-          case 50: {
+          case 58: {
             FileContents = input.ReadBytes();
             break;
           }
         }
       }
     }
-    #endif
 
   }
 

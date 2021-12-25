@@ -1,9 +1,0 @@
-{
-  "IsUseAutoUpdateJson": true,
-  "ClientName": "App1",
-  "ClientVersion": 0,
-  "UpdatePath": "..\\Client",
-  "FileName": "AnyeSoft.Client",
-  "EnumAutoUpdate": 0,
-  "IsConsoleReadKey": true
-}

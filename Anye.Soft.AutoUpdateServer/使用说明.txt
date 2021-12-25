@@ -1,5 +1,0 @@
-﻿服务程序:Anye.Soft.AutoUpdateServer
-运行方式:
-1.双击直接运行:Anye.Soft.AutoUpdateServer.exe
-2.以系统服务运行:右键[以管理员身份运行]运行[1_install.bat]即可,启动服务请执行[2_start_service.bat],停止服务请执行[3_stop_service.bat],卸载服务请执行[4_uninstall.bat]
-

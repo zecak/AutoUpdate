@@ -1,0 +1,9 @@
+[Unit]
+Description=暗夜软件自动更新服务 
+
+[Service]
+WorkingDirectory=/home/zecak/servers/publish
+ExecStart=/usr/bin/dotnet /home/zecak/servers/publish/Anye.Soft.AutoUpdate.Server.dll
+
+[Install]
+WantedBy=multi-user.target

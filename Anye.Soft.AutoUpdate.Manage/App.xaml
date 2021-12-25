@@ -1,0 +1,42 @@
+﻿<Application x:Class="Anye.Soft.AutoUpdate.Manage.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Anye.Soft.AutoUpdate.Manage"
+              xmlns:vc="clr-namespace:Anye.Soft.AutoUpdate.Manage.ValueConverters"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:common="clr-namespace:Anye.Soft.Common;assembly=Anye.Soft.Common"
+             xmlns:s="https://github.com/canton7/Stylet">
+    <Application.Resources>
+        <s:ApplicationLoader>
+            <s:ApplicationLoader.Bootstrapper>
+                <local:Bootstrapper/>
+            </s:ApplicationLoader.Bootstrapper>
+            <s:ApplicationLoader.MergedDictionaries>
+                <ResourceDictionary>
+
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                        <ResourceDictionary Source="Fonts.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                        <ResourceDictionary>
+                            <vc:BoolToNotConverter x:Key="BoolToNot"/>
+                            <vc:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+                            <vc:BoolToNotVisibilityConverter x:Key="BoolToNotVisibility"/>
+                            <ObjectDataProvider x:Key="ToUpdateActionName" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                                <ObjectDataProvider.MethodParameters>
+                                    <x:Type TypeName="common:EnumUpdateAction"/>
+                                </ObjectDataProvider.MethodParameters>
+                            </ObjectDataProvider>
+                            <ObjectDataProvider x:Key="ToFileTypeName" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+                                <ObjectDataProvider.MethodParameters>
+                                    <x:Type TypeName="common:EnumFileType"/>
+                                </ObjectDataProvider.MethodParameters>
+                            </ObjectDataProvider>
+                        </ResourceDictionary>
+                        
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </s:ApplicationLoader.MergedDictionaries>
+        </s:ApplicationLoader>
+    </Application.Resources>
+</Application>
