@@ -62,7 +62,73 @@ namespace Anye.Soft.AutoUpdate.Exec
         public const string DownTemp = "../DownTemp/";
 
 
-        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs=true)
+
+        [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+        /// <summary>
+        /// 创建快捷方式
+        /// </summary>
+        /// <param name="shortcutName">快捷方式名称</param>
+        /// <param name="sourcePath">目标路径</param>
+        /// <param name="lnkPath">快捷方式所处的文件夹</param>
+        /// <param name="iconPath">快捷方式图标路径</param>
+        /// <param name="remark">备注</param>
+        public static void CreateShortcut(string shortcutName, string sourcePath, string lnkPath = null, string iconPath = null, string remark = null)
+        {
+            System.IO.FileInfo fileInfo = new FileInfo(sourcePath);
+            if (string.IsNullOrWhiteSpace(lnkPath))
+            {
+                lnkPath = fileInfo.DirectoryName;
+            }
+            else
+            {
+                switch (lnkPath)
+                {
+                    case "[桌面]":
+                    case "[ZM]":
+                    case "[zhuomian]":
+                    case "[ZhuoMian]":
+                    case "[Desktop]":
+                    case "[desktop]":
+                        {
+                            lnkPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (!System.IO.Directory.Exists(lnkPath))
+            {
+                System.IO.Directory.CreateDirectory(lnkPath);
+            }
+            string shortcutPath = Path.Combine(lnkPath, string.Format("{0}.lnk", shortcutName));
+            IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+            IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutPath);//创建快捷方式对象
+            shortcut.TargetPath = fileInfo.FullName;
+            shortcut.WorkingDirectory = fileInfo.DirectoryName;
+            shortcut.WindowStyle = 1;//设置运行方式，默认为常规窗口
+            shortcut.Description = remark;
+            shortcut.IconLocation = string.IsNullOrWhiteSpace(iconPath) ? fileInfo.FullName : iconPath;
+            shortcut.Save();
+        }
+
+        [System.Runtime.Versioning.SupportedOSPlatform("linux")]
+        public static void CreateShortcutForLinux(string shortcutName, string sourcePath)
+        {
+            ProcessStartInfo startInfo;
+            startInfo = new ProcessStartInfo("ln", " -s " + sourcePath +" "+ shortcutName)
+            {
+                RedirectStandardOutput = true,
+                CreateNoWindow = false,
+                ErrorDialog = false,
+                RedirectStandardError = true
+            };
+            var process = Process.Start(startInfo);
+            
+        }
+
+
+        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs = true)
         {
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
             if (!dir.Exists)
@@ -72,7 +138,7 @@ namespace Anye.Soft.AutoUpdate.Exec
                     + sourceDirName);
             }
 
-            DirectoryInfo[] dirs = dir.GetDirectories();   
+            DirectoryInfo[] dirs = dir.GetDirectories();
             Directory.CreateDirectory(destDirName);
 
             FileInfo[] files = dir.GetFiles();
@@ -153,6 +219,7 @@ namespace Anye.Soft.AutoUpdate.Exec
             }
             catch { }
         }
+
 
         [System.Runtime.Versioning.SupportedOSPlatform("linux")]
         public static List<PInfo> GetPInfos(string execname, string firstarg = "")
@@ -275,5 +342,7 @@ namespace Anye.Soft.AutoUpdate.Exec
 
             Process.Start(startInfo);
         }
+
+
     }
 }

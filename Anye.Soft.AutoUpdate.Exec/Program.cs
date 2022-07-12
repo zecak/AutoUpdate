@@ -22,12 +22,12 @@ namespace Anye.Soft.AutoUpdate.Exec
         {
             try
             {
-                Helper.Log.Debug("args:"+ args.ToJson());
+                Helper.Log.Debug("args:" + args.ToJson());
 
                 SentenceBuilder.Factory = () => new SentenceBuilderCN();
 
                 var parser = new Parser(with => { });
-                var parserResult = parser.ParseArguments<DefaultOptions, AddOptions, EditOptions, DelOptions, GetOptions, UpdateOptions, RunOptions, UpdSelfOptions>(args);
+                var parserResult = parser.ParseArguments<DefaultOptions, AddOptions, EditOptions, DelOptions, GetOptions, UpdateOptions, RunOptions, UpdSelfOptions, LnkOptions>(args);
                 parserResult
                     .WithParsed<DefaultOptions>(options => Default(options))
                     .WithParsed<AddOptions>(options => Add(options))
@@ -37,6 +37,7 @@ namespace Anye.Soft.AutoUpdate.Exec
                     .WithParsed<UpdateOptions>(options => Update(options))
                     .WithParsed<RunOptions>(options => Run(options))
                     .WithParsed<UpdSelfOptions>(options => UpdSelf(options))
+                    .WithParsed<LnkOptions>(options => Lnk(options))
                     .WithNotParsed(errs => DisplayHelp(parserResult, errs))
                   ;
 
@@ -46,6 +47,18 @@ namespace Anye.Soft.AutoUpdate.Exec
                 Helper.Log.Error(ex);
             }
 
+        }
+
+        private static void Lnk(LnkOptions options)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                EHelper.CreateShortcut(options.Name, options.Source, options.LnkPath, options.Icon, options.Remark);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+
+            }
         }
 
         private static void UpdSelf(UpdSelfOptions options)
@@ -214,7 +227,7 @@ namespace Anye.Soft.AutoUpdate.Exec
             var myfullname = Path.GetFileNameWithoutExtension(System.Reflection.Assembly.GetExecutingAssembly().Location);
             var dfullname = Path.GetFileNameWithoutExtension(System.IO.Path.Combine(bashPath, updatePath, options.FileName));
             var isUpdateMe = myfullname == dfullname;
-            
+
             var chatCall = client.Chat();
 
             List<LibVersionInfo> needUpdates = null;
@@ -829,6 +842,7 @@ namespace Anye.Soft.AutoUpdate.Exec
             Console.WriteLine("update        执行更新库配置命令");
             Console.WriteLine("run           直接执行更新命令");
             Console.WriteLine("updself       自我更新命令");
+            Console.WriteLine("lnk           创建快捷方式");
             Console.WriteLine("default       默认命令");
 
             Console.WriteLine("  -v, --ver    版本信息");
